@@ -220,6 +220,9 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.01em;
   color: var(--white);
   text-transform: uppercase;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
 }
 
 .h1-hero {
@@ -527,19 +530,20 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile Drawer */
 .mobile-nav-drawer {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background-color: var(--black);
   z-index: 1050;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 100px 30px 40px;
+  padding: clamp(80px, 12vh, 100px) clamp(20px, 5vw, 30px) max(24px, env(safe-area-inset-bottom, 24px));
   transform: translateY(-100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-nav-drawer.open {
@@ -681,22 +685,18 @@ h1, h2, h3, h4, h5, h6 {
 /* Aspect ratio helper classes */
 .aspect-coach-hero {
   aspect-ratio: 4 / 5;
-  min-height: 480px;
 }
 
 .aspect-editorial-card {
   aspect-ratio: 16 / 10;
-  min-height: 280px;
 }
 
 .aspect-gym-wide {
   aspect-ratio: 16 / 9;
-  min-height: 380px;
 }
 
 .aspect-portrait {
   aspect-ratio: 4 / 5;
-  min-height: 420px;
 }
 
 /* --------------------------------------------------------------------------
@@ -2048,7 +2048,9 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: clamp(16px, 3vh, 32px) clamp(12px, 3vw, 24px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-normal);
@@ -2066,9 +2068,11 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   width: 100%;
-  max-width: 600px;
-  max-height: 90vh;
+  max-width: 540px;
+  margin: auto;
+  max-height: calc(100dvh - 32px);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: clamp(28px, 4vw, 44px);
   position: relative;
   transform: translateY(20px);
@@ -2082,10 +2086,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .modal-close-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 38px;
-  height: 38px;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2093,6 +2097,9 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   color: var(--gray);
+  font-size: 1.15rem;
+  line-height: 1;
+  touch-action: manipulation;
   transition: all var(--transition-fast);
 }
 
@@ -2104,7 +2111,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .modal-header {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
+  padding-right: 48px;
 }
 
 .modal-title {
@@ -2412,6 +2420,21 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 0.85rem;
   }
 
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  .hero-visual {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-visual-card {
+    transform: none;
+    margin: 0 auto;
+  }
+
   .positioning-header {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -2463,6 +2486,15 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 18px;
   }
 
+  .btn {
+    white-space: normal;
+    text-align: center;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.84rem;
+    letter-spacing: 0.05em;
+    max-width: 100%;
+  }
+
   .hero-section {
     padding-top: 24px;
     padding-bottom: 44px;
@@ -2503,7 +2535,6 @@ h1, h2, h3, h4, h5, h6 {
   .hero-ctas .btn {
     width: 100%;
     min-height: 52px;
-    font-size: 0.875rem;
   }
 
   .hero-meta-strip {
@@ -2530,9 +2561,13 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.52rem;
     letter-spacing: 0.1em;
     max-width: calc(100% - 24px);
-    white-space: nowrap;
+  }
+
+  .hero-top-badge span:last-child {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
   }
 
   .trust-strip {
@@ -2546,6 +2581,12 @@ h1, h2, h3, h4, h5, h6 {
     gap: 12px;
   }
 
+  .trust-label {
+    font-size: 0.6rem;
+    white-space: normal;
+    text-align: center;
+  }
+
   .trust-badges {
     justify-content: center;
     gap: 8px 10px;
@@ -2554,6 +2595,9 @@ h1, h2, h3, h4, h5, h6 {
   .credential-badge {
     font-size: 0.72rem;
     padding: 5px 12px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
   }
 
   .eyebrow {
@@ -2579,8 +2623,31 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.65;
   }
 
-  .audience-card {
-    padding: 24px 18px;
+  .principles-grid,
+  .audience-grid,
+  .comparison-grid,
+  .process-grid,
+  .includes-grid,
+  .testimonials-grid,
+  .stories-grid,
+  .gym-grid,
+  .about-grid,
+  .content-two-col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .audience-card,
+  .principle-card,
+  .comparison-card,
+  .process-step,
+  .include-card,
+  .testimonial-card-upgraded,
+  .testimonial-slot,
+  .story-card {
+    min-width: 0;
+    max-width: 100%;
+    padding: 22px 18px;
     border-radius: 20px;
   }
 
@@ -2590,8 +2657,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .audience-headline {
-    font-size: 1.35rem;
+    font-size: clamp(1.2rem, 5.5vw, 1.35rem);
     margin-bottom: 0.85rem;
+    overflow-wrap: break-word;
   }
 
   .audience-copy {
@@ -2604,35 +2672,26 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1.5rem;
   }
 
-  .comparison-card {
-    padding: 24px 18px;
-    border-radius: 20px;
+  .principle-title {
+    font-size: clamp(1.15rem, 5vw, 1.35rem);
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  .gym-label-pill {
+    font-size: 0.65rem;
+    padding: 6px 12px;
+    gap: 6px;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.35;
+    margin-bottom: 1.25rem;
   }
 
   .comparison-grid {
     grid-template-columns: 1fr;
     gap: 18px;
     margin-top: 1.75rem;
-  }
-
-  .process-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .process-step {
-    padding: 24px 18px;
-    border-radius: 20px;
-  }
-
-  .includes-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .include-card {
-    padding: 24px 18px;
-    border-radius: 20px;
   }
 
   .footer-top-grid {
@@ -2659,22 +2718,39 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 52px;
   }
 
+  .modal-backdrop {
+    padding: 12px 10px;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .modal-container {
-    padding: 24px 18px;
+    padding: 24px 18px 20px;
     border-radius: 20px;
-    max-height: 92vh;
-    width: 95%;
+    max-height: calc(100dvh - 24px);
+    width: 100%;
+    margin: auto;
+  }
+
+  .modal-header {
+    padding-right: 44px;
+    margin-bottom: 1.25rem;
   }
 
   .modal-title {
-    font-size: 1.45rem;
+    font-size: clamp(1.3rem, 5.5vw, 1.55rem);
+    line-height: 1.2;
+    overflow-wrap: break-word;
   }
 
   .modal-close-btn {
     top: 14px;
     right: 14px;
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.15rem;
+    touch-action: manipulation;
   }
 
   .form-input, .form-select, .form-textarea {
@@ -2705,21 +2781,76 @@ h1, h2, h3, h4, h5, h6 {
     width: 19px;
     height: 19px;
   }
+
+  .philosophy-statement {
+    font-size: clamp(1.65rem, 6.8vw, 2.25rem);
+    line-height: 1.25;
+  }
+
+  .process-num {
+    font-size: 2.5rem;
+  }
+
+  .principle-number {
+    font-size: 1.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .faq-question {
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
 }
 
 @media (max-width: 380px) {
   .brand-logo .logo-main {
-    font-size: 1.18rem;
+    font-size: 1.15rem;
   }
 
   .btn {
-    padding: 0.85rem 1.25rem;
-    font-size: 0.8125rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
   }
 
   .h1-hero {
     font-size: 1.85rem;
   }
+
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .audience-card,
+  .principle-card,
+  .comparison-card,
+  .process-step,
+  .include-card,
+  .testimonial-card-upgraded,
+  .testimonial-slot,
+  .story-card {
+    padding: 20px 14px;
+  }
+
+  .modal-container {
+    padding: 20px 14px 18px;
+  }
+}
+
+/* Hide floating actions when modal or menu drawer is open */
+body.modal-open .floating-whatsapp-btn,
+body.menu-open .floating-whatsapp-btn,
+body.modal-open .mobile-sticky-cta,
+body.menu-open .mobile-sticky-cta {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Fast touch response without 300ms mobile delay */
+a, button, input, select, textarea {
+  touch-action: manipulation;
 }
 
 /* --------------------------------------------------------------------------
